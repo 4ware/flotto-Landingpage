@@ -11,7 +11,15 @@ const navLinks = [
   { label: 'Überblick', href: '#ueberblick' },
   { label: 'Funktionen', href: '#funktionen' },
   { label: 'Für Fahrer', href: '#fahrer' },
+  { label: 'Preise', href: '#preise' },
   { label: 'Fragen & Antworten', href: '#fragen' },
+];
+
+const pricingPlans = [
+  { name: 'free', price: '0 €', capacity: '3 Arbeitsplätze / Fahrer' },
+  { name: 'pro', price: '49 €', capacity: '5 Arbeitsplätze / Fahrer' },
+  { name: 'max', price: '89 €', capacity: '10 Arbeitsplätze / Fahrer' },
+  { name: 'ultra', price: '200 €', capacity: 'Unbegrenzte Arbeitsplätze / Fahrer' },
 ];
 
 const fleetRows = [
@@ -306,6 +314,32 @@ function App() {
           ].map(([Icon, title, copy], i) => <div key={String(title)} className={`p-6 sm:p-8 ${i ? 'border-t border-[#e8ebe5] md:border-l md:border-t-0' : ''}`}>
             <Icon size={19} className="text-[#4f795a]" /><h3 className="font-display mt-5 text-lg font-bold tracking-[-.03em]">{title as string}</h3><p className="mt-2 text-[13px] leading-6 text-[#6d786e]">{copy as string}</p>
           </div>)}
+        </div>
+      </div>
+    </section>
+
+    <section id="preise" className="section-pad scroll-mt-24 border-y border-[#e7e9e3] bg-[#f3f4ee]">
+      <div className="container-wide">
+        <div className="mx-auto max-w-[680px] text-center">
+          <span className="eyebrow text-[#63806a]">Preise</span>
+          <h2 className="font-display mt-4 text-4xl font-bold tracking-[-.06em] sm:text-[48px]">Der passende Tarif für Ihr Team.</h2>
+          <p className="mx-auto mt-4 max-w-[540px] text-sm leading-7 text-[#66736a]">Wählen Sie den Umfang, der zu Ihren Arbeitsplätzen und Fahrern passt.</p>
+        </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {pricingPlans.map((plan) => (
+            <Card key={plan.name} className="flex h-full flex-col rounded-2xl border-[#e0e5de] bg-[#fffefa] p-6 shadow-none transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_42px_-28px_rgba(26,67,43,.24)] sm:p-7">
+              <h3 className="font-display text-lg font-bold tracking-[-.03em]">{plan.name}</h3>
+              <p className="font-display mt-5 text-4xl font-bold tracking-[-.06em] text-[#1d2c25]">{plan.price}</p>
+              <div className="my-6 h-px bg-[#e8ebe5]" />
+              <div className="flex items-start gap-2.5 text-[13px] leading-5 text-[#59685e]">
+                <Check size={17} className="mt-0.5 shrink-0 text-[#4f795a]" />
+                <span>{plan.capacity}</span>
+              </div>
+              <Button onClick={showDemo} data-testid={`button-pricing-${plan.name}`} className="mt-8 w-full rounded-lg bg-[#174f3e] text-white hover:bg-[#103e30]">
+                Tarif anfragen <ArrowRight size={15} />
+              </Button>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
