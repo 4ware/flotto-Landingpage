@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "flot.to – Fuhrpark im Blick"
+description = "Eine deutschsprachige Landingpage für flot.to, die cloudbasierte Flotten- und Tourenplanung für Speditionen und Fuhrunternehmen vorstellt: Live-Fahrzeugpositionen, Tourenplanung, Wartungs- und Kraftstoffmanagement sowie eine Fahrer-App."
+version = "1.0.0"
+id = "artifacts/flotto-landing"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21119
+
+[services.development]
+run = "pnpm --filter @workspace/flotto-landing run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/flotto-landing", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/flotto-landing/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21119"
+BASE_PATH = "/"
